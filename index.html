@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Rose Day, Himanshi!</title>
+    <style>
+        :root {
+            --rose-red: #ff4d6d;
+            --rose-dark: #800f2f;
+            --bg-color: #0d0106;
+            --text-color: #fff0f3;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Message Box Styling */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 77, 109, 0.2);
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 400px;
+            margin-bottom: 30px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.5s;
+        }
+
+        /* Petal Grid */
+        .petal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 80px);
+            gap: 20px;
+        }
+
+        .petal {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff758c, var(--rose-red));
+            border-radius: 0 100% 0 100%;
+            transform: rotate(45deg);
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            transition: 0.4s;
+        }
+
+        .petal:hover { transform: rotate(45deg) scale(1.1); filter: brightness(1.2); }
+        .petal.clicked { opacity: 0; transform: scale(0); pointer-events: none; }
+
+        /* Photo Gallery */
+        .photo-gallery {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transform: rotate(-3deg);
+            transition: 0.3s;
+        }
+
+        .polaroid img { width: 200px; height: 250px; object-fit: cover; }
+        .polaroid:nth-child(2) { transform: rotate(3deg); }
+
+        /* Final Rose Animation */
+        .rose-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-top: 20px;
+        }
+
+        .rose-emoji {
+            font-size: 120px;
+            display: block;
+            animation: bloom 2.5s ease-out forwards;
+        }
+
+        @keyframes bloom {
+            0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+            60% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .btn {
+            background: var(--rose-red);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: var(--rose-dark); letter-spacing: 1px; }
+
+        h1 { color: var(--rose-red); font-size: 2.2rem; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div class="section" id="s1">
+        <h1>For Himanshi</h1>
+        <div class="glass-box" id="msg-box">Pick a petal, each one hides a feeling...</div>
+        <div class="petal-grid">
+            <div class="petal" onclick="revealNote(this, 'Your smile is my favorite home 🏠')"></div>
+            <div class="petal" onclick="revealNote(this, 'Every day is better with you ✨')"></div>
+            <div class="petal" onclick="revealNote(this, 'You make my world beautiful 🌎')"></div>
+            <div class="petal" onclick="revealNote(this, 'I am so lucky to have you 🍀')"></div>
+            <div class="petal" onclick="revealNote(this, 'You are my favorite thought 💭')"></div>
+            <div class="petal" onclick="revealNote(this, 'My heart beats softer for you 💓')"></div>
+        </div>
+        <button class="btn hidden" id="to-photos" onclick="nextSection('s1', 's2')">See Our Moments 📸</button>
+    </div>
+
+    <div class="section hidden" id="s2">
+        <h1>Beautiful Himanshi</h1>
+        <div class="photo-gallery">
+            <div class="polaroid"><img src="https://i.ibb.co/gZrGXqJT/Whats-App-Image-2026-02-07-at-3-57-42-PM.jpg" alt="Himanshi 1"></div>
+            <div class="polaroid"><img src="https://i.ibb.co/23nrWyyV/Whats-App-Image-2026-02-08-at-3-57-42-PM.jpg" alt="Himanshi 2"></div>
+            <div class="polaroid"><img src="" alt="Himanshi 3"></div>
+        </div>
+        <button class="btn" onclick="nextSection('s2', 's3')">A Final Surprise 🌹</button>
+    </div>
+
+    <div class="section hidden" id="s3">
+        <div class="rose-container">
+            <span class="rose-emoji">🌹</span>
+        </div>
+        <h1>Happy Rose Day, Himanshi!</h1>
+        <p style="font-style: italic; max-width: 300px;">"This Rose is for my Rose. Thank you for being you."</p>
+    </div>
+
+    <audio id="loveSong" loop>
+        <source src="love.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        let petalsOpened = 0;
+        const totalPetals = 6;
+        const song = document.getElementById('loveSong');
+
+        function revealNote(el, note) {
+            // Start music on first click
+            if(petalsOpened === 0) song.play().catch(() => {});
+
+            el.classList.add('clicked');
+            const box = document.getElementById('msg-box');
+            box.style.opacity = 0;
+            
+            setTimeout(() => {
+                box.innerText = note;
+                box.style.opacity = 1;
+                box.style.color = '#ff758c';
+            }, 300);
+
+            petalsOpened++;
+            if(petalsOpened === totalPetals) {
+                document.getElementById('to-photos').classList.remove('hidden');
+            }
+        }
+
+        function nextSection(current, next) {
+            document.getElementById(current).classList.add('hidden');
+            const nextEl = document.getElementById(next);
+            nextEl.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
